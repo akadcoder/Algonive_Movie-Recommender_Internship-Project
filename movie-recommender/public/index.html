@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinemaFlix - Professional Movie Recommendations</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">FlixForge</h1>
+            <nav class="nav">
+                <button class="nav-btn active" data-section="discover">Discover</button>
+                <button class="nav-btn" data-section="search">Search</button>
+                <button class="nav-btn" data-section="recommendations">For You</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            
+            <!-- Hero Section -->
+            <section class="hero" id="hero">
+                <div class="hero-content">
+                    <h1>Unlimited movies at your fingertips</h1>
+                    <p>Discover your next favorite movie with AI-powered recommendations</p>
+                    <button class="btn-hero" onclick="showSection('search')">
+                        <span>Start Exploring</span>
+                        <i class="arrow">→</i>
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Discover Section -->
+            <section id="discover" class="section active">
+                <div class="section-header">
+                    <h2>Discover Movies</h2>
+                    <p>Popular and trending films updated daily</p>
+                </div>
+                
+                <div class="movie-section">
+                    <h3 class="section-title">Trending Now</h3>
+                    <div id="trendingMovies" class="movie-row"></div>
+                </div>
+                
+                <div class="movie-section">
+                    <h3 class="section-title">Popular Movies</h3>
+                    <div id="popularMovies" class="movie-row"></div>
+                </div>
+            </section>
+
+            <!-- Search Section -->
+            <section id="search" class="section">
+                <div class="section-header">
+                    <h2>Search Movies</h2>
+                    <p>Find your favorite films by title, genre, or actor</p>
+                </div>
+                
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search movies...">
+                        <button class="search-btn" onclick="performSearch()">
+                            <span>Search</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="searchStatus" class="status"></div>
+                <div id="searchResults" class="movie-grid"></div>
+            </section>
+
+            <!-- Recommendations Section -->
+            <section id="recommendations" class="section">
+                <div class="section-header">
+                    <h2>Recommended for You</h2>
+                    <p>Personalized movie suggestions based on your preferences</p>
+                </div>
+                
+                <div class="filter-container">
+                    <button class="filter-btn active" onclick="loadRecommendations('content', this)">For You</button>
+                    <button class="filter-btn" onclick="loadRecommendations('popular', this)">Popular</button>
+                    <button class="filter-btn" onclick="loadRecommendations('trending', this)">Trending</button>
+                </div>
+                
+                <div id="recommendationStatus" class="status"></div>
+                <div id="recommendationResults" class="movie-grid"></div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Movie Modal -->
+    <div id="movieModal" class="modal">
+        <div class="modal-overlay" onclick="closeModal()"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            
+            <div class="modal-body">
+                <div class="movie-poster">
+                    <img id="modalImage" src="" alt="" loading="lazy">
+                </div>
+                
+                <div class="movie-details">
+                    <h3 id="modalTitle"></h3>
+                    <div class="movie-meta">
+                        <span id="modalYear"></span>
+                        <span id="modalRating" class="rating-badge"></span>
+                        <span id="modalDuration"></span>
+                    </div>
+                    <div id="modalGenres" class="genres"></div>
+                    <p id="modalDescription"></p>
+                    <div id="modalCast" class="cast-info"></div>
+                    
+                    <div class="modal-actions">
+                        <button class="btn-primary" onclick="openRatingModal()">
+                            <span>★</span>
+                            Rate Movie
+                        </button>
+                        <button class="btn-secondary">
+                            <span>+</span>
+                            Add to Watchlist
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rating Modal -->
+    <div id="ratingModal" class="modal">
+        <div class="modal-overlay" onclick="closeRatingModal()"></div>
+        <div class="modal-content rating-modal">
+            <button class="modal-close" onclick="closeRatingModal()">×</button>
+            
+            <div class="rating-content">
+                <h3 id="ratingTitle">Rate this Movie</h3>
+                <div class="stars" id="starRating">
+                    <span class="star" data-rating="1">★</span>
+                    <span class="star" data-rating="2">★</span>
+                    <span class="star" data-rating="3">★</span>
+                    <span class="star" data-rating="4">★</span>
+                    <span class="star" data-rating="5">★</span>
+                </div>
+                <p class="rating-help">Click the stars to rate</p>
+                <button class="btn-primary" onclick="submitRating()">Submit Rating</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

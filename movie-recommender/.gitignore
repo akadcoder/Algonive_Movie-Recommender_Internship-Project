@@ -1,0 +1,9 @@
+# Environment variables (NEVER share these!)
+.env
+
+# Dependencies
+node_modules/
+
+# System files
+.DS_Store
+Thumbs.db
